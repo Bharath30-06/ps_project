@@ -1,0 +1,26 @@
+labels:
+  app1: ims
+  app2: mongo 
+
+image:
+  name1: bharathsunny3006/ps
+  name2: mongo
+  tag1: latest
+  tag2: latest
+
+source:
+  port1: 3000
+  port2: 27017
+
+service:
+
+  type: LoadBalancer
+
+
+
+env:
+  name: MONGO_URI
+  link: "mongodb://mongo:27017/job_portal"
+
+
+Replicas: 2

@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:  
+  name: ps-blue-green 
+  namespace: argo-cd
+spec:
+  project: default
+  source:
+    repoURL:  https://github.com/Bharath30-06/ps.git
+    targetRevision: main
+    path: project_ps
+    helm: 
+      values: | 
+        userprofile: 
+          activeVersion: blue 
+    destination:
+      server: 
+      namespace: retail
+    syncpolicy:
+      automated:
+        prune: true
+        selfHeal: true 

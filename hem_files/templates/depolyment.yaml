@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-imsdepolyment
+spec:
+  replicas: {{ .Values.Replicas }}
+  selector:
+    matchLabels:
+      app: {{ .Values.labels.apps1 }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.labels.apps1 }}
+    spec:
+      containers:
+      - name: imsimage
+        image: {{ .Values.image.name1 }}:{{ .Values.image.tag1 }}
+        ports:
+        - containerPort: {{ .Values.source.port1 }}
+        env: 
+        - name: {{ .Values.env.name }}
+          value: {{ .Values.env.link | quote }} 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ ..Release.Name }}-imservice
+spec:
+  selector:
+    app: {{ .Values.labels.apps1 }}
+  ports:
+  - port: {{ .Values.source.port1 }}
+    targetPort: {{ .Values.source.port1 }}
+  type: {{ .Values.service.type }}
+
+        
