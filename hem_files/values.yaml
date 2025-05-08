@@ -1,6 +1,8 @@
+replicas: 2
+
 labels:
-  app1: ims
-  app2: mongo 
+  apps1: ims
+  apps2: mongo 
 
 image:
   name1: bharathsunny3006/ps
@@ -13,14 +15,8 @@ source:
   port2: 27017
 
 service:
-
   type: LoadBalancer
-
-
 
 env:
   name: MONGO_URI
-  link: "mongodb://mongo:27017/job_portal"
-
-
-Replicas: 2
+  link: "mongodb://{{ .Release.Name }}-mongoservice:27017/job_portal"
