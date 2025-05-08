@@ -26,7 +26,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ ..Release.Name }}-imservice
+  name: {{ .Release.Name }}-imservice
 spec:
   selector:
     app: {{ .Values.labels.apps1 }}
