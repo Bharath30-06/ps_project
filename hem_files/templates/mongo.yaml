@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: imsimage
-        image: {{ .Values.image.name2 }}:{{ ..Values.image.tag2 }} 
+        image: {{ .Values.image.name2 }}:{{ .Values.image.tag2 }} 
         ports:
         - containerPort: {{ .Values.source.port2 }}
        
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ ..Release.Name }}-mongoservice
+  name: {{ .Release.Name }}-mongoservice
 spec:
   selector:
     app: {{ .Values.labels.apps2 }}
