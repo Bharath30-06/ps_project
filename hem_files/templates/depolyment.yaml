@@ -1,9 +1,10 @@
-apiVersion: apps/v1
+
+       apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-imsdepolyment
+  name: {{ .Release.Name }}-imsdeployment
 spec:
-  replicas: {{ .Values.Replicas }}
+  replicas: {{ .Values.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.labels.apps1 }}
@@ -13,16 +14,15 @@ spec:
         app: {{ .Values.labels.apps1 }}
     spec:
       containers:
-      - name: imsimage
+      - name: ims
         image: {{ .Values.image.name1 }}:{{ .Values.image.tag1 }}
         ports:
         - containerPort: {{ .Values.source.port1 }}
-        env: 
-        - name: {{ .Values.env.name }}
-          value: {{ .Values.env.link | quote }} 
+      env:
+      - name: {{ .Values.env.name }}
+        value: "mongodb://{{ .Release.Name }}-mongoservice:27017/job_portal"
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -34,5 +34,10 @@ spec:
   - port: {{ .Values.source.port1 }}
     targetPort: {{ .Values.source.port1 }}
   type: {{ .Values.service.type }}
+            
 
-        
+
+
+
+
+
